@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Loan Calculator</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" 
+	href="css/bootstrap.min.css">
+</head>
+<body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js">
+</script>
+
+<script type="text/javascript">
+$(function() 
+{
+	$('#btn-calculate').bind('click', function()
+	{
+		//First Table Result
+			let p = +$('#loanamount').val();
+			let r = (+$('#interestrate').val() / 100) / 12;
+			let n = +$('#termofyear').val() * 12;
+
+			let mpayment1 = p * ( ( r * (1 + r)**n ) / 
+								((1 + r)**n - 1 ));
+
+			let mpayment = +(mpayment1).toFixed();
+			
+
+		$('#result-monlthlypayment').text(mpayment.toLocaleString());
+		$('#result-loanamount').text(p.toLocaleString());
+		$('#result-interest').text($('#interestrate').val());
+		$('.result-termofyear').text($('#termofyear').val());
+		// Second Table Result
+		$('#secondcalculate').html('');
+		let monthnumber = 1, totalinterest = 0;
+		for (let i = n; i > 0 ; i--)
+		{
+				interest = p * r;
+				let html=`
+				<tr>
+				<td>Month # ${monthnumber++}</td>
+				<td>${(+p.toFixed()).toLocaleString()}</td>
+				<td>${(+interest.toFixed()).toLocaleString()}</td>
+				<td>${mpayment.toLocaleString()}</td>
+				</tr>`;
+				$('#secondcalculate').append(html);
+				p = p + interest - mpayment1;
+				totalinterest += interest;
+		}
+				$('#result-totalinterest').text((+totalinterest.toFixed()).toLocaleString());
+		$('#result').slideDown('slow');		
+	});
+});
+
+</script>
+<!-- Jumbotron starts -->
+<div class="jumbotron">
+	<div class="container">
+	<h2 class="display-4">Home Loan Calculator</h2>
+	<p>အိမ်ရာချေးငွေတွက်ချက်ရန်</p>
+	</div>
+</div>
+<!-- Jumbotron ends -->
+<div class="container py-3">
+	<form>
+		<div class="row offset-2">
+			<div class="col-md-3">
+					<div class="form-group">
+						<label for="loanamount">ချေးငွေ ပမာဏ :</label>
+					</div>
+			</div>
+			<div class="col-md-6">
+					<div class="form-group">
+						<input type="number" name="loanamount" 
+						class="form-control" id="loanamount">
+					</div>
+			</div>
+		</div>
+		<div class="row offset-2">
+			<div class="col-md-3">
+					<div class="form-group">
+						<label for="interestrate"> 
+						အတိုးနှုန်း :</label>
+					</div>
+			</div>
+			<div class="col-md-6">
+					<div class="form-group">
+						<input type="number" name="interestrate" 
+						class="form-control" id="interestrate">
+					</div>
+			</div>
+		</div>
+		<div class="row offset-2">
+			<div class="col-md-3">
+					<div class="form-group">
+						<label for="termofyear"> 
+						ချေးယူမည့် နှစ်ပမာဏ :</label>
+					</div>
+			</div>
+			<div class="col-md-6">
+					<div class="form-group">
+						<input type="number" name="termofyear" 
+						class="form-control" id="termofyear">
+					</div>
+			</div>
+		</div>
+		<div class="row offset-6">
+				<div class="col-12 col-lg-9">
+					<button type="button" class="btn btn-outline-info pt-2 pb-2" id="btn-calculate">တွက်ချက်ပါ</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- Result -->
+<section  id="result" style="display: none;">
+<hr>
+<div class="container py-3">
+	<div class="row">
+		<!-- First Result Table -->
+		<div class="col-md-4">
+			<div class="table-responsive">
+			<table class="table table-bordered">
+				<thead>
+					<tr class="bg-info text-light">
+						<th colspan="2">ချေးငွေပေးသွင်းမှုပုံစံ <i>(Your Loan Payment)</i></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>လစဉ် ငွေပေးချေမှု</td>
+						<td><span id="result-monlthlypayment"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>(<span class="result-termofyear"></span>) နှစ်အတွင်း စုစုပေါင်းအတိုး</td>
+						<td><span id="result-totalinterest"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>ချေးငွေ ပမာဏ</td>
+						<td><span id="result-loanamount"></span></td>
+					</tr>
+					<tr>
+						<td>အတိုးနှုန်း</td>
+						<td><span id="result-interest"></span></td>
+					</tr>
+					<tr>
+						<td>ချေးယူမည့် နှစ်ပမာဏ</td>
+						<td><span class="result-termofyear"></span></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<!-- Second Result Table -->
+		<div class="col-md-8">
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead>
+						<tr class="bg-info text-light">
+							<th colspan="4">(<span class="result-termofyear"></span>) နှစ်တာ ချေးငွေပေးသွင်းမှု ပုံစံ (Loan Payment Over <span class="result-termofyear"></span> Years)</th>
+						</tr>
+						<tr class="bg-light">
+							<th>ငွေပေးချေမည့် လအရေအတွက်</th>
+							<th>ချေးငွေ ပမာဏ</th>
+							<th>အတိုးနှုန်း</th>
+							<th>လစဉ် ငွေပေးချေမှု</th>
+						</tr>
+					</thead>
+					<tbody id="secondcalculate">	
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+</body>
+</html>

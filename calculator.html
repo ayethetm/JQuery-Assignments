@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+	<link rel="stylesheet" type="text/css" 
+	href="css/bootstrap.min.css">
+</head>
+<body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js">
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		// Click plus button
+		$('#plus').click(function(){
+			$('#result').addClass('text-info');
+			$('#result').text ( +$('#firstnumber').val() +
+		 +$('#secondnumber').val());
+		})
+		// Click minus button
+		$('#minus').click(function(){
+			$('#result').addClass('text-danger');
+			$('#result').text ( +$('#firstnumber').val() -
+		 +$('#secondnumber').val());
+		})
+		// Click multiply button
+		$('#multiply').click(function(){
+			$('#result').addClass('text-primary');
+			$('#result').text ( +$('#firstnumber').val() *
+		 +$('#secondnumber').val());
+		})
+		// Click divide button
+		$('#divide').click(function(){
+			$('#result').addClass('text-success');
+			$('#result').text ( +$('#firstnumber').val() /
+		 +$('#secondnumber').val());
+		})
+	})
+</script>
+<!-- Jumbotron starts -->
+<div class="jumbotron">
+	<div class="container">
+	<h1 class="display-4">Calculator</h1>
+	</div>
+</div>
+<!-- Jumbotron ends -->
+<div class="container py-3">
+	<form>
+		<div class="row offset-1">
+			<div class="col-md-3">
+					<div class="form-group">
+						<label for="firstnumber">First Number:</label>
+					</div>
+			</div>
+			<div class="col-md-9">
+					<div class="form-group">
+						<input type="text" name="firstnumber" 
+						class="form-control" id="firstnumber">
+					</div>
+			</div>
+		</div>
+		<div class="row offset-1">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="secondnumber">Second Number:
+					</label>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<input type="text" name="secondnumber" 
+					class="form-control "
+					id="secondnumber">
+				</div>
+			</div>
+		</div>
+		<div class="row offset-1">
+		<div class="col-md-3">
+			<button type="button" class="btn btn-outline-info btn-block my-3" id="plus">+</button>
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-outline-danger btn-block my-3" id="minus">-</button>
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-outline-primary
+			btn-block my-3" id="multiply">*</button>
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-outline-success btn-block my-3" id="divide">/</button>
+		</div>
+		</div>
+		<div class="row offset-1">
+		<div class="col-md-12">
+			<h2 class="font-weight-bold">Result is : <span id="result"></span></h2>
+		</div>	
+	</form>
+</div>
+</body>
+</html>
